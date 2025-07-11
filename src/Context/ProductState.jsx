@@ -58,6 +58,31 @@ const ProductState = (props) => {
 
       };
   }
+   const editProduct = async (id, updateData) => {
+    const { title, description, instock, price } = updateData;
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/product/updateproduct/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+          body: JSON.stringify({ title, description, instock, price }),
+        }
+      );
+
+      const data = await response.json();
+      console.log("edited data", data);
+      allProduct();
+    } catch (error) {
+      console.log("internal server error", error);
+      throw new Error("failed to update product");
+    }
+  };
+
 
   return (
     <ProductContext.Provider value={{product, state, dispatch, allProduct}}> 
