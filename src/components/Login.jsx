@@ -1,62 +1,44 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-// import { TiEye } from "react-icons/ti";
-// import { IoMdEyeOff } from "react-icons/io";
+import React from "react";
+import { Link } from "react-router-dom";
+import Footer from "./footer";
 
-const Login = () => {
-  const navigate= useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
 
+const LoginPage = () => {
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-4">
-          <div className="login-title">
-            <h4>Log In</h4>
-
-       
-            <div className="input-box relative">
-              <input type="text" placeholder="Username" required />
-              <i className="bx bxs-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-            </div>
-
-       
-            <div className="input-box relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                required
-                className="w-full pr-10"
-              />
-              <i className="bx bxs-lock-alt absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-              <span
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-500"
-              >
-                {/* {showPassword ? <IoMdEyeOff size={20} /> : <TiEye size={20} />} */}
-              </span>
-            </div>
-
-           
-            <div className="remember-forget">
-              <label>
-                <input type="checkbox" /> Remember Me
-              </label>
-              <a href="#">Forget Password?</a>
-            </div>
-
+    <>
+    <div className="login-container">
   
-            <button type="submit" className="login-btn">Log In</button>
+      <div className="login-form">
+        <h2>Log In</h2>
+        <form>
+          <label htmlFor="username">Username</label>
+          <input type="text" id="username" placeholder="Enter your username" />
 
-        
-            <div className="register-link">
-              <p>Don't have an account? <Link to="/signup">Register</Link></p>
-            </div>
+          <label htmlFor="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" />
+
+          <div className="options">
+            <label>
+              <input type="checkbox" /> Remember me
+            </label>
+            <a href="#">Forgot Password?</a>
           </div>
-        </div>
+
+          <button type="submit">Log In</button>
+
+          <p className="signup-link">
+            Don’t have an account? <Link to ="/signup">Sign Up</Link>
+          </p>
+        </form>
       </div>
+
+     
+      <div className="login-image"></div>
     </div>
+    <Footer />
+    </>
+
   );
 };
 
-export default Login;
+export default LoginPage;

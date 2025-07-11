@@ -34,9 +34,9 @@ const total = cart.reduce((acc, item )=> acc + item.price * item.qty,0)
                           })
 
                         }
-                        className='form-control'
+                        className='form-control1'
                         >
-                          {[...Array(item.Instock).keys()].map((x)=>(
+                          {[...Array(item.instock).keys()].map((x)=>(
                             <option key ={x+1} value= {x+1}>{x+1}</option>
                           ))}
                         </select>

@@ -2,6 +2,7 @@ import React from 'react';
 import BlogBanner from "./blogbanner";
 import BlogImage from "../assets/BlogImage.jpg";
 import FunctionBased from "./FunctionBased";
+import Footer from './footer';
 
 const Blog = (props) => {
   const Blogs = [
@@ -55,9 +56,10 @@ const Blog = (props) => {
               </div>
             );
           })}
-          <FunctionBased /> 
+          {/* <FunctionBased />  */}
         </div>
       </div>
+      <Footer />
     </div>
   )
 };

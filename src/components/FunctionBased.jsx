@@ -30,7 +30,7 @@ const NewsHeadlines = () => {
 
   return (
     <div className="container">
-      <h2 className="my-4 text-center">Top US Headlines</h2>
+      <h2 className="my-4 text-center api">Top US Headlines</h2>
       <div className="row">
         {articles.map((article, index) => (
           <div key={index} className="col-md-4 mb-4">
@@ -38,7 +38,7 @@ const NewsHeadlines = () => {
               {article.urlToImage && (
                 <img src={article.urlToImage} className="card-img-top" alt={article.title} />
               )}
-              <div className="card-body-2">
+              <div className="card-body-2 api">
                 <h5 className="card-title">{article.title}</h5>
                 <p className="card-text">{article.description || 'No description available.'}</p>
               </div>

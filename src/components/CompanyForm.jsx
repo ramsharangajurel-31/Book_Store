@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Footer from './footer';
 
 const CompanyForm = () => {
   const [companyData, setCompanyData] = useState({
@@ -17,7 +18,8 @@ const CompanyForm = () => {
   };
 
   return (
-    <div className="container ">
+    <div>
+    <div className="company-body">
       <div className="row">
         <div className="col-md-6">
         <div className="company-form">
@@ -78,6 +80,8 @@ const CompanyForm = () => {
           </div>
         </div>
       </div>
+      </div>
+      <Footer />
     </div>
   );
 };

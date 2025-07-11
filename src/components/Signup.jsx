@@ -1,71 +1,45 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import Footer from "./footer";
 
-const SignUp = () => {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Basic password strength rule: min 8 chars, at least one number & letter
-    const passwordRegex = /^[A-Za-z\d]{6,}$/;
-
-    if (!passwordRegex.test(password)) {
-      setError('Password must be at least 8 characters long and contain both letters and numbers.');
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setError('Passwords do not match.');
-      return;
-    }
-
-    setError('');
-    navigate("/login")
-  };
-
+const SignupPage = () => {
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-4">
-          <form className="login-title" onSubmit={handleSubmit}>
-            <h4>Sign Up</h4>
+    <>
+    <div className="login-container">
 
-            <div className="input-box">
-              <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
-            </div>
-            <div className="input-box">
-              <input type="number" placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
-            </div>
-            <div className="input-box">
-              <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            </div>
-            <div className="input-box">
-              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            </div>
-            <div className="input-box">
-              {/* Use type="password" here, not confirmpassword */}
-              <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-            </div>
+      <div className="login-form">
+        <h2>Sign Up</h2>
+        <form>
+          <label htmlFor="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter your full name" />
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your email" />
 
-            <button type="submit" className="login-btn">Sign Up</button>
+          <label htmlFor="username">Username</label>
+          <input type="text" id="username" placeholder="Choose a username" />
 
-            <div className="register-link">
-              <p>Already have an account? <a href="/login">Log In</a></p>
-            </div>
-          </form>
-        </div>
+          <label htmlFor="password">Password</label>
+          <input type="password" id="password" placeholder="Create a password" />
+
+          <label htmlFor="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" placeholder="Confirm your password" />
+
+          <button type="submit">Sign Up</button>
+
+          <p className="signup-link">
+            Already have an account? <Link to="/login">Log In</Link>
+          </p>
+        </form>
       </div>
+
+     
+      <div className="signup-image"></div>
     </div>
+    <Footer />
+    </>
   );
 };
 
-export default SignUp;
+export default SignupPage;

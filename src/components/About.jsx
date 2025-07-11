@@ -4,6 +4,7 @@ import SmallBanner from './smallbanner';
 import AboutImage from '../assets/about-image.jpg';
 import { BsThreeDots } from "react-icons/bs";
 import EditProductModal from './EditProductModal';
+import Footer from './footer';
 
 const About = (props) => {
   const { state: { cart, products }, dispatch , allProduct } = useContext(ProductContext);
@@ -126,6 +127,7 @@ const About = (props) => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -82,6 +82,30 @@ const ProductState = (props) => {
       throw new Error("failed to update product");
     }
   };
+   //delete product
+  const deleteProduct = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/product/deleteproduct/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      console.log("data deleted", data);
+      allProduct();
+    } catch (error) {
+      console.log("error", error);
+      throw new Error("filed to delete product");
+    }
+  };
 
 
   return (
