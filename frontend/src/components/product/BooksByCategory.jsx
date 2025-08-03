@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ProductContext from '../../Context/ProductContext';
 
+const BACKEND_URL = 'http://localhost:5000';
+
 const BooksByCategory = ({ categoryParam }) => {
   const category = categoryParam || useParams().category;
   const navigate = useNavigate();
@@ -20,6 +22,20 @@ const BooksByCategory = ({ categoryParam }) => {
     navigate(`/book/${id}`);
   };
 
+  // Function to get the correct image URL
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return '/default-book.png';
+    
+    // If it's a full path from uploads, prepend backend URL
+    if (imagePath.startsWith('/uploads/')) {
+      return `${BACKEND_URL}${imagePath}`;
+    }
+    
+    // If it's just a filename (from seed data), it's in the frontend's public directory
+    // The Vite dev server serves files from the public directory at the root
+    return `/${imagePath}`;
+  };
+
   return (
     <div className="books-category-container">
       <h2 className="books-category-heading">{category} Books</h2>
@@ -28,8 +44,8 @@ const BooksByCategory = ({ categoryParam }) => {
           filteredBooks.map((item) => (
             <div className="books-category-card" key={item._id}>
               <img
-                src={item.image || '/default-book.png'}
-                alt={item.name}
+                src={getImageUrl(item.image)}
+                alt={item.title}
                 className="books-category-img"
               />
               <div className="books-category-info">

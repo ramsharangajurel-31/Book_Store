@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+
 const AddProduct = () => {
   const initialState = {
     title: '',
@@ -21,7 +22,7 @@ const AddProduct = () => {
     if (type === 'file') {
       setProduct((prev) => ({
         ...prev,
-        [name]: files,
+        [name]: files[0], // just one file
       }));
     } else {
       setProduct((prev) => ({
@@ -39,12 +40,12 @@ const AddProduct = () => {
     formData.append('title', product.title.trim());
     formData.append('description', product.description.trim());
     formData.append('price', Number(product.price));
-    formData.append('stock', Number(product.stock)); // Fixed field name
+    formData.append('stock', Number(product.stock)); // change to 'instock' if needed
     formData.append('category', product.category.trim());
     formData.append('author', product.author.trim());
 
-    if (product.image && product.image.length > 0) {
-      formData.append('image', product.image[0]);
+    if (product.image) {
+      formData.append('image', product.image);
     }
 
     console.group('FormData Preview');
@@ -61,18 +62,17 @@ const AddProduct = () => {
           headers: {
             'auth-token': localStorage.getItem('auth-token') || '',
           },
-          validateStatus: (s) => s < 500, // handle 4xx in catch
+          validateStatus: (s) => s < 500,
         }
       );
 
       if (status === 200 || status === 201) {
         alert('Product Added Successfully');
-        setProduct(initialState); // reset form
+        setProduct(initialState);
       } else if (status === 401) {
-        // Handle 401 errors by redirecting to login
         localStorage.removeItem('auth-token');
         alert('Session expired. Please log in again.');
-        window.location.href = '/login'; // Use window.location for full page redirect
+        window.location.href = '/login';
         return;
       } else {
         const msg =
@@ -82,11 +82,10 @@ const AddProduct = () => {
         alert(msg);
       }
     } catch (err) {
-      // Handle 401 errors by redirecting to login
       if (err.response && err.response.status === 401) {
         localStorage.removeItem('auth-token');
         alert('Session expired. Please log in again.');
-        window.location.href = '/login'; // Use window.location for full page redirect
+        window.location.href = '/login';
         return;
       }
       console.error('Unexpected error', err);
@@ -97,104 +96,114 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="container">
-      <div>
-        <h5>Add Product</h5>
+    <div className="addproduct-container">
+      <div className="addproduct-card">
+        <h4 className="addproduct-heading">Add New Book</h4>
         <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <div className="row">
-            <div className="col-md-6">
-              <div className="mb-3">
-                <label htmlFor="title" className="form-label">Title</label>
-                <input
-                  type="text"
-                  name="title"
-                  value={product.title}
-                  onChange={handleChange}
-                  className="form-control"
-                  id="title"
-                  required
-                />
-              </div>
+          <div className="addproduct-form">
+            <div className="mb-3">
+              <label htmlFor="title" className="form-label">Title</label>
+              <input
+                type="text"
+                name="title"
+                value={product.title}
+                onChange={handleChange}
+                className="form-control"
+                id="title"
+                required
+              />
+            </div>
 
-              <div className="mb-3">
-                <label htmlFor="author" className="form-label">Author</label>
-                <input
-                  type="text"
-                  name="author"
-                  value={product.author}
-                  onChange={handleChange}
-                  className="form-control"
-                  id="author"
-                  required
-                />
-              </div>
+            <div className="mb-3">
+              <label htmlFor="author" className="form-label">Author</label>
+              <input
+                type="text"
+                name="author"
+                value={product.author}
+                onChange={handleChange}
+                className="form-control"
+                id="author"
+                required
+              />
+            </div>
 
-              <div className="mb-3">
-                <label htmlFor="description" className="form-label">Description</label>
-                <input
-                  type="text"
-                  name="description"
-                  value={product.description}
-                  onChange={handleChange}
-                  className="form-control"
-                  id="description"
-                  required
-                />
-              </div>
+            <div className="mb-3">
+              <label htmlFor="description" className="form-label">Description</label>
+              <input
+                type="text"
+                name="description"
+                value={product.description}
+                onChange={handleChange}
+                className="form-control"
+                id="description"
+                required
+              />
+            </div>
 
-              <div className="mb-3">
-                <label htmlFor="price" className="form-label">Price</label>
-                <input
-                  type="number"
-                  name="price"
-                  value={product.price}
-                  onChange={handleChange}
-                  className="form-control"
-                  id="price"
-                  required
-                />
-              </div>
+            <div className="mb-3">
+              <label htmlFor="price" className="form-label">Price</label>
+              <input
+                type="number"
+                name="price"
+                value={product.price}
+                onChange={handleChange}
+                className="form-control"
+                id="price"
+                min="0"
+                required
+              />
+            </div>
 
-              <div className="mb-3">
-                <label htmlFor="stock" className="form-label">Stock</label>
-                <input
-                  type="number"
-                  name="stock"
-                  value={product.stock}
-                  onChange={handleChange}
-                  className="form-control"
-                  id="stock"
-                  required
-                />
-              </div>
+            <div className="mb-3">
+              <label htmlFor="stock" className="form-label">Stock</label>
+              <input
+                type="number"
+                name="stock"
+                value={product.stock}
+                onChange={handleChange}
+                className="form-control"
+                id="stock"
+                min="0"
+                required
+              />
+            </div>
 
-              <div className="mb-3">
-                <label htmlFor="category" className="form-label">Category</label>
-                <input
-                  type="text"
-                  name="category"
-                  value={product.category}
-                  onChange={handleChange}
-                  className="form-control"
-                  id="category"
-                  required
-                />
-              </div>
+            <div className="mb-3">
+              <label htmlFor="category" className="form-label">Category</label>
+              <input
+                type="text"
+                name="category"
+                value={product.category}
+                onChange={handleChange}
+                className="form-control"
+                id="category"
+                required
+              />
+            </div>
 
-              <div className="mb-3">
-                <label htmlFor="image" className="form-label">Image</label>
-                <input
-                  type="file"
-                  name="image"
-                  onChange={handleChange}
-                  className="form-control"
-                  id="image"
-                  accept="image/*"
-                />
-              </div>
+            <div className="mb-3">
+              <label htmlFor="image" className="form-label">Image</label>
+              <input
+                type="file"
+                name="image"
+                onChange={handleChange}
+                className="form-control"
+                id="image"
+                accept="image/*"
+              />
+            </div>
 
+            <div className="addproduct-button-group">
               <button type="submit" className="btn btn-primary" disabled={submitting}>
                 {submitting ? 'Submitting...' : 'Submit'}
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary ms-2"
+                onClick={() => setProduct(initialState)}
+                disabled={submitting}
+              >
+                Reset
               </button>
             </div>
           </div>

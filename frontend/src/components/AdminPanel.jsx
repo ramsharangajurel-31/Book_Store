@@ -1,20 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AddProduct from './product/AddProduct';
-import BooksByCategory from './product/BooksByCategory';
 import EditProductModal from './product/EditProductModal';
 import axios from 'axios';
 import ProductContext from '../Context/ProductContext';
 
+
 const AdminPanel = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem('auth-token');
-  const [activeTab, setActiveTab] = useState(null); // null means no form shown initially
+  const [activeTab, setActiveTab] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectProduct, setSelectProduct] = useState(null);
-
-  // Since we're using ProtectedRoute, we don't need to check for token here
-  // But we'll keep the logout functionality
+  const { allProduct } = useContext(ProductContext);
 
   const openEditModal = (product) => {
     setSelectProduct(product);
@@ -41,12 +38,11 @@ const AdminPanel = () => {
       if (response.status === 200) {
         alert('Product updated successfully');
         closeEditModal();
-        // Optionally refresh product list or update state here
+        allProduct(); // refresh products
       } else {
         alert('Failed to update product');
       }
     } catch (error) {
-      // Handle 401 errors by redirecting to login
       if (error.response && error.response.status === 401) {
         localStorage.removeItem('auth-token');
         alert('Session expired. Please log in again.');
@@ -55,6 +51,38 @@ const AdminPanel = () => {
       }
       console.error('Error updating product:', error);
       alert('Error updating product');
+    }
+  };
+
+  const deleteProduct = async (product) => {
+    if (!window.confirm(`Are you sure you want to delete "${product.title}"?`)) {
+      return;
+    }
+    try {
+      const authToken = localStorage.getItem('auth-token') || '';
+      const response = await axios.delete(
+        `http://localhost:5000/api/products/books/${product._id}`,
+        {
+          headers: {
+            'auth-token': authToken,
+          },
+        }
+      );
+      if (response.status === 200) {
+        alert('Product deleted successfully');
+        allProduct(); // refresh list
+      } else {
+        alert('Failed to delete product');
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        localStorage.removeItem('auth-token');
+        alert('Session expired. Please log in again.');
+        navigate('/login');
+        return;
+      }
+      console.error('Error deleting product:', error);
+      alert('Error deleting product');
     }
   };
 
@@ -81,71 +109,31 @@ const AdminPanel = () => {
     }
   };
 
-  const { allProduct } = useContext(ProductContext);
-
-  const deleteProduct = async (product) => {
-    if (!window.confirm(`Are you sure you want to delete "${product.title}"?`)) {
-      return;
-    }
-    try {
-      const authToken = localStorage.getItem('auth-token') || '';
-      const response = await axios.delete(
-        `http://localhost:5000/api/products/books/${product._id}`,
-        {
-          headers: {
-            'auth-token': authToken,
-          },
-        }
-      );
-      if (response.status === 200) {
-        alert('Product deleted successfully');
-        // Refresh product list
-        allProduct();
-      } else {
-        alert('Failed to delete product');
-      }
-    } catch (error) {
-      // Handle 401 errors by redirecting to login
-      if (error.response && error.response.status === 401) {
-        localStorage.removeItem('auth-token');
-        alert('Session expired. Please log in again.');
-        navigate('/login');
-        return;
-      }
-      console.error('Error deleting product:', error);
-      alert('Error deleting product');
-    }
-  };
-
   return (
-    <div className="admin-panel-container">
-      <h1>Admin Panel</h1>
-      <div className="admin-buttons">
-        <button onClick={() => setActiveTab('add')}>
-          Add Product
-        </button>
-        <button onClick={() => setActiveTab('edit')}>
-          Edit Product
-        </button>
-        <button onClick={() => setActiveTab('delete')}>
-          Delete Product
-        </button>
-        <button onClick={() => {
-          localStorage.removeItem('auth-token');
-          navigate('/login');
-        }}>
+    <div className="admin-panel-container" style={{ padding: '20px', maxWidth: '1000px', margin: '0 auto' }}>
+      <div className="admin-header">
+        <h1>Admin Panel</h1>
+        <button
+          className="logout-button"
+          onClick={() => {
+            localStorage.removeItem('auth-token');
+            navigate('/login');
+          }}
+        >
           Logout
         </button>
       </div>
-      <div className="admin-content">
-        {renderContent()}
+
+      <div className="admin-buttons">
+        <button onClick={() => setActiveTab('add')}>Add Product</button>
+        <button onClick={() => setActiveTab('edit')}>Edit Product</button>
+        <button onClick={() => setActiveTab('delete')}>Delete Product</button>
       </div>
+
+      <div className="admin-content">{renderContent()}</div>
+
       {modalVisible && selectProduct && (
-        <EditProductModal
-          product={selectProduct}
-          onClose={closeEditModal}
-          onSave={saveEdit}
-        />
+        <EditProductModal product={selectProduct} onClose={closeEditModal} onSave={saveEdit} />
       )}
     </div>
   );
@@ -156,41 +144,46 @@ const ProductList = ({ onEdit }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    allProduct();
-    setLoading(false);
-  }, []);
+    const fetch = async () => {
+      await allProduct();
+      setLoading(false);
+    };
+    fetch();
+  }, [allProduct]);
 
   if (loading) return <p>Loading products...</p>;
 
   return (
-    <table className="table table-striped">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Category</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Edit</th>
-        </tr>
-      </thead>
-      <tbody>
-        {products.map(product => (
-          <tr key={product._id}>
-            <td>{product.title}</td>
-            <td>{product.author}</td>
-            <td>{product.category}</td>
-            <td>Rs.{product.price}</td>
-            <td>{product.stock}</td>
-            <td>
-              <button className="btn btn-primary" onClick={() => onEdit(product)}>
-                Edit
-              </button>
-            </td>
+    <div className="table-responsive">
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Edit</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {products.map(product => (
+            <tr key={product._id}>
+              <td>{product.title}</td>
+              <td>{product.author}</td>
+              <td>{product.category}</td>
+              <td>Rs.{product.price}</td>
+              <td>{product.instock}</td>
+              <td>
+                <button className="btn btn-primary" onClick={() => onEdit(product)}>
+                  Edit
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
@@ -199,41 +192,46 @@ const ProductListWithDelete = ({ onDelete }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    allProduct();
-    setLoading(false);
-  }, []);
+    const fetch = async () => {
+      await allProduct();
+      setLoading(false);
+    };
+    fetch();
+  }, [allProduct]);
 
   if (loading) return <p>Loading products...</p>;
 
   return (
-    <table className="table table-striped">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Category</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        {products.map(product => (
-          <tr key={product._id}>
-            <td>{product.title}</td>
-            <td>{product.author}</td>
-            <td>{product.category}</td>
-            <td>Rs.{product.price}</td>
-            <td>{product.stock}</td>
-            <td>
-              <button className="btn btn-danger" onClick={() => onDelete(product)}>
-                Delete
-              </button>
-            </td>
+    <div className="table-responsive">
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Delete</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {products.map(product => (
+            <tr key={product._id}>
+              <td>{product.title}</td>
+              <td>{product.author}</td>
+              <td>{product.category}</td>
+              <td>Rs.{product.price}</td>
+              <td>{product.instock}</td>
+              <td>
+                <button className="btn btn-danger" onClick={() => onDelete(product)}>
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
