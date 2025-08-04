@@ -10,7 +10,8 @@ import Home from "./pages/Home";
 import AddProduct from "./components/product/AddProduct";
 import Login from "./components/auth/Login";
 import Signup  from "./components/auth/Signup";
-import Footer from "./components/layout/footer";
+import Footer from "./components/layout/Footer";
+
 
 import Contact from "./components/contact";
 import CompanyForm from "./components/CompanyForm";
