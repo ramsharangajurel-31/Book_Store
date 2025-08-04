@@ -6,7 +6,6 @@ import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import AboutPage from "./pages/Aboutpage";
 import Home from "./pages/Home";
-// import Productlist from "./components/product/Productlist";
 import AddProduct from "./components/product/AddProduct";
 import Login from "./components/auth/Login";
 import Signup  from "./components/auth/Signup";
