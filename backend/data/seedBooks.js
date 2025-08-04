@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Product = require('../model/Product');
 const connectDB = require('../config/db');
 
+
 const seedBooks = [
   {
     title: "The Great Gatsby",
@@ -10,7 +11,7 @@ const seedBooks = [
     price: 1500,
     stock: 10,
     category: "Fiction",
-    image: "fiction1.png",
+    image: "/uploads/fiction1.png",
   },
   {
     title: "To Kill a Mockingbird",
@@ -19,7 +20,7 @@ const seedBooks = [
     price: 1700,
     stock: 8,
     category: "Fiction",
-    image: "fiction2.png",
+    image: "/uploads/fiction2.png",
   },
   {
     title: "A Brief History of Time",
@@ -28,7 +29,7 @@ const seedBooks = [
     price: 2000,
     stock: 5,
     category: "Science",
-    image: "science1.png",
+    image: "/uploads/science1.png",
   },
   {
     title: "The Selfish Gene",
@@ -37,7 +38,7 @@ const seedBooks = [
     price: 1800,
     stock: 6,
     category: "Science",
-    image: "science2.png",
+    image: "/uploads/science2.png",
   },
   {
     title: "Sapiens: A Brief History of Humankind",
@@ -46,7 +47,7 @@ const seedBooks = [
     price: 1850,
     stock: 7,
     category: "History",
-    image: "history1.png",
+    image: "/uploads/history1.png",
   },
   {
     title: "Guns, Germs, and Steel",
@@ -55,7 +56,7 @@ const seedBooks = [
     price: 1675,
     stock: 9,
     category: "History",
-    image: "history2.png",
+    image: "/uploads/history2.png",
   },
   {
     title: "The Diary of a Young Girl",
@@ -64,7 +65,7 @@ const seedBooks = [
     price: 1275,
     stock: 8,
     category: "Biography",
-    image: "biography1.png",
+    image: "/uploads/biography1.png",
   },
   {
     title: "Long Walk to Freedom",
@@ -73,7 +74,7 @@ const seedBooks = [
     price: 1450,
     stock: 5,
     category: "Biography",
-    image: "biography2.png",
+    image: "/uploads/biography2.png",
   },
   {
     title: "Becoming",
@@ -82,7 +83,7 @@ const seedBooks = [
     price: 1600,
     stock: 6,
     category: "Biography",
-    image: "biography3.png",
+    image: "/uploads/biography3.png",
   },
   {
     title: "1984",
@@ -91,7 +92,7 @@ const seedBooks = [
     price: 1350,
     stock: 9,
     category: "Fiction",
-    image: "fiction3.png",
+    image: "/uploads/fiction3.png",
   },
   {
     title: "The Elegant Universe",
@@ -100,7 +101,7 @@ const seedBooks = [
     price: 1950,
     stock: 7,
     category: "Science",
-    image: "science3.png",
+    image: "/uploads/science3.png",
   },
   {
     title: "The Wright Brothers",
@@ -109,9 +110,10 @@ const seedBooks = [
     price: 1500,
     stock: 6,
     category: "History",
-    image: "history3.png",
+    image: "/uploads/history3.png",
   },
 ];
+
 
 const seedDB = async () => {
   try {

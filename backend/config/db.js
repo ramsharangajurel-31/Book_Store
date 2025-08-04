@@ -8,8 +8,6 @@ const connectDB = async () => {
     console.error(`Error: ${error.message}`);
     console.error('Make sure MongoDB is installed .');
     
-    // Continue running the application even if MongoDB connection fails
-    // This allows the application to start and function without database connectivity
   }
 };
 

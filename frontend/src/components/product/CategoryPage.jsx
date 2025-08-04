@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 
 const categories = [
-  { name: "Fiction", image: "fiction.png" },
-  { name: "Science", image: "science.png" },
-  { name: "History", image: "history.png" },
-  { name: "Biography", image: "biography.png" },
+  { name: "Fiction", image: "/fiction.png" },
+  { name: "Science", image: "/science.png" },
+  { name: "History", image: "/history.png" },
+  { name: "Biography", image: "/biography.png" },
 ];
 
 const CategoryPage = () => {

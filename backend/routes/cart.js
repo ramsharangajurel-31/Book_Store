@@ -1,10 +1,23 @@
 const express = require('express');
+const { auth } = require('../middleware/auth');
 const router = express.Router();
 
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const { userId, items } = req.body;
   const Cart = require('../model/Cart');
+
+
+  if (!userId || !items) {
+    return res.status(400).json({ message: "userId and items are required" });
+  }
+
+ 
+  for (const item of items) {
+    if (!item.productId || !item.title || item.price === undefined || item.qty === undefined) {
+      return res.status(400).json({ message: "Each item must have productId, title, price, and qty" });
+    }
+  }
 
   try {
     let cart = await Cart.findOne({ userId });
@@ -19,26 +32,27 @@ router.post('/', async (req, res) => {
     await newCart.save();
     res.status(201).json({ message: "Cart created successfully!", cart: newCart });
   } catch (err) {
-  console.error("Cart route error:", err);
-  res.status(500).json({ message: "Internal Server Error", error: err.message });
-}
+    console.error("Cart route error:", err);
+    res.status(500).json({ message: "Internal Server Error", error: err.message });
+  }
 });
 
 
 
-router.get('/:userId', async (req, res) => {
+router.get('/:userId', auth, async (req, res) => {
   try {
     const Cart = require('../model/Cart');
     const cart = await Cart.findOne({ userId: req.params.userId });
     if (!cart) return res.status(404).json({ message: "Unable to find your cart!" });
     res.json(cart);
   } catch (err) {
-    res.status(500).json({ message: " Internal Server error" });
+    console.error("Cart get error:", err);
+    res.status(500).json({ message: "Internal Server error", error: err.message });
   }
 });
 
-// DELETE /cart/:userId - Clear the cart for a user
-router.delete('/:userId', async (req, res) => {
+
+router.delete('/:userId', auth, async (req, res) => {
   try {
     const Cart = require('../model/Cart');
     const result = await Cart.deleteOne({ userId: req.params.userId });
@@ -47,6 +61,7 @@ router.delete('/:userId', async (req, res) => {
     }
     res.json({ message: "Cart cleared successfully." });
   } catch (err) {
+    console.error("Cart delete error:", err);
     res.status(500).json({ message: "Internal Server Error", error: err.message });
   }
 });

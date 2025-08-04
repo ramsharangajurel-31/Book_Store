@@ -6,7 +6,7 @@ const TopHeader = () => {
     <div className="top-header">
       <div className='container top-header-content'>
 
-        {/* Branding Section */}
+       
         <div className='top-branding'>
           <FaBookOpen className="book-icon animated-icon" />
           <div className="branding-text">
@@ -15,7 +15,6 @@ const TopHeader = () => {
           </div>
         </div>
 
-        {/* Social Icons */}
         <div className='top-head-icons'>
           <ul>
             <li><FaFacebookF /></li>
@@ -24,7 +23,7 @@ const TopHeader = () => {
           </ul>
         </div>
 
-        {/* Call Number */}
+      
         <div className="tophead-call">
           <h5>Call: 0450 455 724</h5>
         </div>

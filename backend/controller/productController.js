@@ -1,4 +1,4 @@
-// Add a new book (Admin only)
+
 exports.addBook = async (req, res) => {
   try {
     const Product = require('../model/Product');
@@ -22,7 +22,6 @@ exports.addBook = async (req, res) => {
   }
 };
 
-// Get all books
 exports.getAllBooks = async (req, res) => {
   try {
     const Product = require('../model/Product');
@@ -34,7 +33,7 @@ exports.getAllBooks = async (req, res) => {
   }
 };
 
-// Get book by ID
+
 exports.getBookById = async (req, res) => {
   try {
     const Product = require('../model/Product');
@@ -47,7 +46,7 @@ exports.getBookById = async (req, res) => {
   }
 };
 
-// Update book details (Admin only)
+
 exports.updateBook = async (req, res) => {
   try {
     const Product = require('../model/Product');
@@ -63,7 +62,7 @@ exports.updateBook = async (req, res) => {
       stock,
     };
     
-    // Only add image to update data if a new image was uploaded
+ 
     if (image !== undefined) {
       updateData.image = image;
     }
@@ -81,7 +80,6 @@ exports.updateBook = async (req, res) => {
   }
 };
 
-// Delete book (Admin only)
 exports.deleteBook = async (req, res) => {
   try {
     const Product = require('../model/Product');

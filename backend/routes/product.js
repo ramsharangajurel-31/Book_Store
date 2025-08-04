@@ -5,10 +5,10 @@ const { auth, admin } = require('../middleware/auth');
 const { validateBook } = require('../middleware/validation');
 const multer = require('multer');
 
-// Configure multer for file uploads
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // Make sure this directory exists
+    cb(null, 'uploads/'); 
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname);

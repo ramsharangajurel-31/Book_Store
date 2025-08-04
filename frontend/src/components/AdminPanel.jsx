@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddProduct from './product/AddProduct';
 import EditProductModal from './product/EditProductModal';
@@ -38,8 +38,7 @@ const AdminPanel = () => {
       if (response.status === 200) {
         alert('Product updated successfully');
         closeEditModal();
-        allProduct(); // refresh products
-      } else {
+        allProduct(); 
         alert('Failed to update product');
       }
     } catch (error) {
@@ -70,7 +69,7 @@ const AdminPanel = () => {
       );
       if (response.status === 200) {
         alert('Product deleted successfully');
-        allProduct(); // refresh list
+        allProduct();
       } else {
         alert('Failed to delete product');
       }
@@ -173,7 +172,7 @@ const ProductList = ({ onEdit }) => {
               <td>{product.author}</td>
               <td>{product.category}</td>
               <td>Rs.{product.price}</td>
-              <td>{product.instock}</td>
+              <td>{product.stock}</td>
               <td>
                 <button className="btn btn-primary" onClick={() => onEdit(product)}>
                   Edit
@@ -221,7 +220,7 @@ const ProductListWithDelete = ({ onDelete }) => {
               <td>{product.author}</td>
               <td>{product.category}</td>
               <td>Rs.{product.price}</td>
-              <td>{product.instock}</td>
+              <td>{product.stock}</td>
               <td>
                 <button className="btn btn-danger" onClick={() => onDelete(product)}>
                   Delete

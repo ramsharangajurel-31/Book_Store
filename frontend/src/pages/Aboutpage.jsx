@@ -1,5 +1,6 @@
 import React from 'react';
- // Import the CSS file
+import aboutimage from '../assets/about.jpeg';
+
 
 const AboutPage = () => {
   return (
@@ -27,11 +28,11 @@ const AboutPage = () => {
 
           <h2>Why Choose Us?</h2>
           <ul>
-            <li>📚 Thousands of titles across every genre</li>
-            <li>🚚 Quick & reliable delivery</li>
-            <li>💡 Personalized recommendations</li>
-            <li>💬 Friendly customer support</li>
-            <li>🌍 E-books and sustainable practices</li>
+            <li> Thousands of titles across every genre</li>
+            <li>Quick & reliable delivery</li>
+            <li>Personalized recommendations</li>
+            <li> Friendly customer support</li>
+            <li> E-books and sustainable practices</li>
           </ul>
 
           <h2>Join Our Community</h2>
@@ -44,7 +45,7 @@ const AboutPage = () => {
         </div>
 
         <div className="about-image">
-          <img src="/assets/about-books.jpg" alt="Stack of books" />
+          <img src={aboutimage} alt="Stack of books" />
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ProductContext from '../../Context/ProductContext';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -9,7 +10,8 @@ const BookDetails = () => {
 
   if (!products) return <p>Loading...</p>;
 
-  const book = products.find(b => b._id === id);
+  // For MongoDB ObjectId comparison, we need to convert to string
+  const book = products.find(b => b._id === id || b._id.toString() === id);
 
   if (!book) return <p className="book-not-found">Book not found</p>;
 
@@ -21,7 +23,7 @@ const BookDetails = () => {
 
       <div className="book-details-container">
         <div className="book-details-image">
-          <img src={book.image} alt={book.title} />
+          <img src={getImageUrl(book.image)} alt={book.title} />
         </div>
 
         <div className="book-details-content">
@@ -29,7 +31,7 @@ const BookDetails = () => {
           <p><strong>Author:</strong> {book.author}</p>
           <p><strong>Category:</strong> {book.category}</p>
           <p><strong>Description:</strong> {book.description}</p>
-          <p><strong>Price:</strong> Rs.{book.price.toFixed(2)}</p>
+          <p><strong>Price:</strong> Rs.{book.price}</p>
           <p><strong>In Stock:</strong> {book.stock}</p>
         </div>
       </div>

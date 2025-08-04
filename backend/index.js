@@ -29,8 +29,8 @@ const upload = multer({ storage: storage });
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // Add this to handle form data
-app.use('/uploads', express.static('uploads')); // Serve uploaded files
+app.use(express.urlencoded({ extended: true })); 
+app.use('/uploads', express.static('uploads')); 
 
 const port = process.env.PORT || 5000;
 
@@ -42,7 +42,7 @@ app.get('/contact', (req, res) => {
   res.send('This is contact page');
 });
 
-// Removed unused routes for chats or others if any
+
 
 app.use("/api/auth", require("./routes/Auth"));
 app.use("/api/cart", require("./routes/cart"));

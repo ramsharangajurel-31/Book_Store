@@ -4,8 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 const User = require("../model/User");
-
-// @route   POST /createuser
+//   POST /createuser
 router.post("/createuser", [
   body("name").isLength({ min: 3 }).withMessage("Name must be at least 3 characters"),
   body("email").isEmail().withMessage("Please enter a valid email"),
@@ -57,7 +56,7 @@ router.post("/createuser", [
   }
 });
 
-// @route   POST /login
+//   POST /login
 router.post("/login", [
   body("email").isEmail().withMessage("Please enter a valid email"),
   body("password").isLength({ min: 6 }).withMessage("Password must be at least 6 characters"),

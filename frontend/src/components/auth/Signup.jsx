@@ -20,7 +20,6 @@ const SignupPage = () => {
     e.preventDefault();
     setError("");
 
-    // Frontend validation
     if (formData.name.length < 3) {
       setError("Name must be at least 3 characters");
       return;

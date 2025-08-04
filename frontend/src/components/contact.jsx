@@ -7,7 +7,6 @@ const Contact = () => {
 
     return (
         <div className= "footer">
-            {/* <h5>{title}</h5> */}
             <img src={FooterImage} alt="footerimage" />
             <div className="container">
                 <div className="row"> 

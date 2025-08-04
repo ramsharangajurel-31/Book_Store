@@ -22,7 +22,7 @@ const AddProduct = () => {
     if (type === 'file') {
       setProduct((prev) => ({
         ...prev,
-        [name]: files[0], // just one file
+        [name]: files[0], 
       }));
     } else {
       setProduct((prev) => ({
@@ -40,7 +40,7 @@ const AddProduct = () => {
     formData.append('title', product.title.trim());
     formData.append('description', product.description.trim());
     formData.append('price', Number(product.price));
-    formData.append('stock', Number(product.stock)); // change to 'instock' if needed
+    formData.append('stock', Number(product.stock));
     formData.append('category', product.category.trim());
     formData.append('author', product.author.trim());
 

@@ -8,7 +8,7 @@ const productSchema = new Schema({
   price: { type: Number, required: true },
   category: { type: String, required: true },
   stock: { type: Number, required: true },
-  image: { type: String } // Add image field to store file path
+  image: { type: String, required: true }
 });
 
 const Product = mongoose.model("Product", productSchema);

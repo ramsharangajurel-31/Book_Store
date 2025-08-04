@@ -1,8 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ProductContext from '../../Context/ProductContext';
-
-const BACKEND_URL = 'http://localhost:5000';
+import { getImageUrl } from '../../utils/imageUtils';
 
 const BooksByCategory = ({ categoryParam }) => {
   const category = categoryParam || useParams().category;
@@ -13,28 +12,11 @@ const BooksByCategory = ({ categoryParam }) => {
     allProduct();
   }, []);
 
-  console.log("BooksByCategory - categoryParam:", category);
-  console.log("BooksByCategory - total products:", products.length);
-  const filteredBooks = products.filter(book => book.category === category);
-  console.log("BooksByCategory - filteredBooks length:", filteredBooks.length);
-
   const handleViewDetails = (id) => {
     navigate(`/book/${id}`);
   };
 
-  // Function to get the correct image URL
-  const getImageUrl = (imagePath) => {
-    if (!imagePath) return '/default-book.png';
-    
-    // If it's a full path from uploads, prepend backend URL
-    if (imagePath.startsWith('/uploads/')) {
-      return `${BACKEND_URL}${imagePath}`;
-    }
-    
-    // If it's just a filename (from seed data), it's in the frontend's public directory
-    // The Vite dev server serves files from the public directory at the root
-    return `/${imagePath}`;
-  };
+  const filteredBooks = products.filter(book => book.category === category);
 
   return (
     <div className="books-category-container">
@@ -74,7 +56,7 @@ const BooksByCategory = ({ categoryParam }) => {
                   ) : (
                     <button
                       className="btn-cart"
-                      onClick={() => dispatch({ type: "ADD_TO_CART", payload: item })}
+                      onClick={() => dispatch({ type: "ADD_TO_CART", payload: {...item, qty: 1} })}
                     >
                       Add to Cart
                     </button>
