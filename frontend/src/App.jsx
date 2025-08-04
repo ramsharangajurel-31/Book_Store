@@ -6,11 +6,12 @@ import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import AboutPage from "./pages/Aboutpage";
 import Home from "./pages/Home";
-// import Productlist from "./components/product/Productlist";
 import AddProduct from "./components/product/AddProduct";
 import Login from "./components/auth/Login";
 import Signup  from "./components/auth/Signup";
-import Footer from "/src/components/layout/Footer";
+import Footer from "./components/layout/Footer";
+
+
 import Contact from "./components/contact";
 import CompanyForm from "./components/CompanyForm";
 import CartItems from "./components/CartItems";

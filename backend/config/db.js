@@ -10,7 +10,7 @@ const connectDB = async () => {
   } catch (error) {
     console.error(`Error: ${error.message}`);
     console.error('Make sure MongoDB is installed and running locally if you are using local DB.');
-    process.exit(1);  // exit process with failure
+    process.exit(1);  
   }
 };
 
