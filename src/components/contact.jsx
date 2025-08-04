@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "./footer";
 import { ToastContainer, toast } from 'react-toastify';
 import FooterImage from"../assets/contact-section.jpg";
 const Contact = () => {
@@ -8,7 +7,6 @@ const Contact = () => {
 
     return (
         <div className= "footer">
-            {/* <h5>{title}</h5> */}
             <img src={FooterImage} alt="footerimage" />
             <div className="container">
                 <div className="row"> 
@@ -68,7 +66,7 @@ const Contact = () => {
                  referrerPolicy="no-referrer-when-downgrade">
                 </iframe>
                 </div>
-                <Footer />
+      
         </div>
     );
 } 

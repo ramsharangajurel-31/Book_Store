@@ -3,81 +3,62 @@ import { ToastContainer, toast } from 'react-toastify';
 import { BrowserRouter as Router, Routes,Route } from 'react-router-dom';
 
 import "./App.css";
-import Navbar from "./components/Navbar";
-import Alert from "./components/Alert";
-import Home from "./components/Home";
-import About from "./components/About";
-import Blog from "./components/Blog";
+import Navbar from "./components/layout/Navbar";
+import AboutPage from "./pages/Aboutpage";
+import Home from "./pages/Home";
+// import Productlist from "./components/product/Productlist";
+import AddProduct from "./components/product/AddProduct";
+import Login from "./components/auth/Login";
+import Signup  from "./components/auth/Signup";
+import Footer from "./components/layout/Footer";
+
 import Contact from "./components/contact";
-import Login from "./components/Login";
-import SignUp from "./components/SignUp"; 
-import Userlist from "./components/Userlist";
-import UserDetail from "./components/UserDetail";
-import ProductState from "./Context/ProductState";
-import CartItems from "./components/CartItems";
 import CompanyForm from "./components/CompanyForm";
-import AddProduct from "./components/AddProduct";
+import CartItems from "./components/CartItems";
+import ProductState from "./Context/ProductState";
+import CategoryPage from "./components/product/CategoryPage";
+import BooksByCategory from "./components/product/BooksByCategory";
+import BookDetails from "./components/product/BookDetails";
+import TopHeader from "./components/layout/TopHeader";
+import AdminPanel from "./components/AdminPanel";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+
+
 
 function App() {
-  const [count, setCount] = useState(10);
-  const [name, setName] = useState("John ");
-  const [mode, setMode] = useState("dark");
-  const [text, setText] = useState("Theme ");
-  const [alert, setAlert] = useState(null);
+  
 
-  const toggleMode = () => {
-    if (mode === "dark") {
-      setMode("light");
-      setText("Dark Theme");
-      showAlert("Light mode enabled successfully!", "Success");
-    } else {
-      setMode("dark");
-      setText("Light Theme");
-      showAlert("Dark mode enabled successfully!", "Success");
-    }
-  };
-  const showAlert = (message, type) => {
-    setAlert({
-      message: message,
-      type: type,
-    });
-    setTimeout(() => {
-      setAlert(null);
-    }, 1000);
-  };
-
-  let title = " < Light & Lens >";
 
   return (
     <>
       <Router>
         <ProductState>
-          <Navbar mode={mode} toggleMode={toggleMode} text={text} title={title} />
-          <Alert alert={alert} />
-          <ToastContainer />
-
+          <TopHeader />
+          <Navbar  />
           <Routes>
-            <Route path="/" element={<Home mode={mode} />} />
-            <Route path="about" element={<About mode={mode} />} />
-             <Route path="/addproduct" element={<AddProduct mode={mode} />} />    
-            <Route
-              path="blog"
-              element={
-                <Blog
-                  title="Welcome to Blogs!"
-                  backgroundColor={mode === "dark" ? "#333" : "#fff"}
-                  mode={mode}
-                />
-              }
-            />
-            <Route path="contact" element={<Contact mode={mode} />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/" element={<Home />} />
+            <Route path ='/about' element={<AboutPage/>} />
+   
+            <Route path="/admin" element={
+              <ProtectedRoute>
+                <AdminPanel />
+              </ProtectedRoute>
+            } /> 
+
+            
+           
+            <Route path="contact" element={<Contact />} />
+            <Route path="/signup" element={<Signup/>} />
             <Route path ="/companyform" element={<CompanyForm />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/userlist" element={<Userlist />} />
-            <Route path="/users/:id/:username" element={<UserDetail />} />
+         
+           
             <Route path="/cartitems" element ={<CartItems />} />
+              <Route path="/categories" element={<CategoryPage />} />
+             <Route path="/books/:category" element={<BooksByCategory />} />
+            <Route path="/book/:id" element={<BookDetails />} />
           </Routes>
+          <Footer />
         
         </ProductState> 
       </Router>
