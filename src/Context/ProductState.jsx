@@ -68,7 +68,7 @@ const ProductState = (props) => {
 
   const allProduct = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/products/books', {
+      const response = await fetch('https://book-store-61ip.onrender.com/api/products/books', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ const ProductState = (props) => {
 
   const editProduct = async (id, updateData) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/products/books/${id}`, {
+      const response = await fetch(`https://book-store-61ip.onrender.com/api/products/books/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ const ProductState = (props) => {
 
   const deleteProduct = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/products/books/${id}`, {
+      const response = await fetch(`https://book-store-61ip.onrender.com/api/products/books/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
