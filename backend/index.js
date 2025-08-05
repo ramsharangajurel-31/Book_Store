@@ -13,7 +13,7 @@ connectDB();       // Then connect to MongoDB
 // CORS config
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://yourdomain.com', 'https://www.yourdomain.com', 'https://steady-torte-ea9b10.netlify.app', 'https://astounding-pithivier-1fa540.netlify.app'] 
+    ? ['https://yourdomain.com', 'https://www.yourdomain.com', 'https://sprightly-hamster-8a2709.netlify.app', 'https://astounding-pithivier-1fa540.netlify.app'] 
     : ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
