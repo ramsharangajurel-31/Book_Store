@@ -56,7 +56,7 @@ const AddProduct = () => {
 
     try {
       const { data, status } = await axios.post(
-        'http://localhost:5000/api/products/books',
+        'https://book-store-61ip.onrender.com/api/products/books',
         formData,
         {
           headers: {

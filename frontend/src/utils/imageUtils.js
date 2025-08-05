@@ -1,4 +1,4 @@
-const BACKEND_URL = 'http://localhost:5000';
+const BACKEND_URL = 'https://book-store-61ip.onrender.com';
 
 export const getImageUrl = (imagePath) => {
   if (!imagePath) return '/default-book.png'; 

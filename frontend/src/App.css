@@ -1496,13 +1496,26 @@ a, h3 {
 
 .login-image {
   flex: 1;
-  background: url('/images/login-graphic.png') center/cover no-repeat;
+  background-image: url("/src/assets/login.png");
+  background-size: cover;
+  background-position: center;
   display: none; 
 }
 
+.signup-image {
+  flex: 1;
+  background-image: url("/src/assets/signup.png");
+  background-size: cover;
+  background-position: center;
+  display: none;
+}
 
 @media (min-width: 768px) {
   .login-image {
+    display: block;
+  }
+
+  .signup-image {
     display: block;
   }
 
@@ -1518,65 +1531,62 @@ a, h3 {
   }
 }
 
-.signup-link {
-  margin-top: 20px;
-  font-size: 14px;
-  text-align: center;
-}
-
-.signup-link a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-
-.login-image {
-  flex: 1;
-  background-image: url("./assets/login.png");
-  background-size: cover;
-  background-position: center;
-
-}
-
-.signup-image {
-  flex: 1;
-  background-image: url("./assets/signup.png");
-  background-size: cover;
-  background-position: center;
-
-}
-
-
-.title-content{
+.title-content {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
 }
-.company-card{
-  margin:70px 0px;
+
+.company-card {
+  margin: 70px 0px;
   width: 450px;
-  padding:20px;
+  padding: 20px;
   border: 2px solid black;
   border-radius: 8px;
   background: #1e293b;
-  color:white;
-  box-shadow: 0 0 10px rgba(0,0,0,1);
-  
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  flex: 1;
+  min-width: 280px;
 }
-.company-body{
+
+.company-body {
   background: #121212;
+  padding: 10px;
 }
-.company-form{
-  
-  padding:15px;
-  margin: 70px 70px;
-  width:500px;
+
+.company-form {
+  padding: 15px;
+  margin: 70px;
+  width: 500px;
   border: 2px solid black;
-  border-radius:8px;
+  border-radius: 8px;
   background: #1e293b;
-  color:white;
-  box-shadow: 0 0 10px rgba(0,0,0,1);
-  
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  flex: 1;
+  min-width: 280px;
 }
+
+
+@media (max-width: 768px) {
+  .title-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .company-card,
+  .company-form {
+    width: 90%;
+    margin: 20px auto;
+  }
+
+  .company-form {
+    margin: 20px auto;
+  }
+}
+
 /* .form-control{
   background: #1e293b;
   border-radius: 6px;

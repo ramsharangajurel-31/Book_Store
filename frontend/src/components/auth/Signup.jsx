@@ -36,7 +36,7 @@ const SignupPage = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/createuser", {
+      const response = await axios.post("https://book-store-61ip.onrender.com/api/auth/createuser", {
         name: formData.name,
         email: formData.email,
         password: formData.password,

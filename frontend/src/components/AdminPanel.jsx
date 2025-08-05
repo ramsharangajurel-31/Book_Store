@@ -27,7 +27,7 @@ const AdminPanel = () => {
     try {
       const authToken = localStorage.getItem('auth-token') || '';
       const response = await axios.put(
-        `http://localhost:5000/api/products/books/${selectProduct._id}`,
+        `https://book-store-61ip.onrender.com/api/products/books/${selectProduct._id}`,
         updateData,
         {
           headers: {
