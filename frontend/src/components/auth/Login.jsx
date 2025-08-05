@@ -5,7 +5,7 @@ import axios from "axios";
 const LoginPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const [error, setError] = useState("");
@@ -26,7 +26,7 @@ const LoginPage = () => {
 
     try {
       const response = await axios.post("https://book-store-61ip.onrender.com/api/auth/login", {
-        email: formData.email,
+        username: formData.username,
         password: formData.password,
       });
 
@@ -47,8 +47,8 @@ const LoginPage = () => {
         <div className="login-form">
           <h2>Log In</h2>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" placeholder="Enter your email" value={formData.email} onChange={handleChange} required />
+            <label htmlFor="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username" value={formData.username} onChange={handleChange} required />
 
             <label htmlFor="password">Password</label>
             <input type="password" id="password" placeholder="Enter your password" value={formData.password} onChange={handleChange} required />
@@ -58,7 +58,7 @@ const LoginPage = () => {
             <button type="submit">Log In</button>
 
             <p className="signup-link">
-              Don’t have an account? <Link to="/signup">Sign Up</Link>
+              Don't have an account? <Link to="/signup">Sign Up</Link>
             </p>
           </form>
         </div>
