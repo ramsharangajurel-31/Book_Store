@@ -4,7 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 const User = require("../model/User");
-//   POST /createuser
+
+// POST /api/auth/createuser
 router.post("/createuser", [
   body("name").isLength({ min: 3 }).withMessage("Name must be at least 3 characters"),
   body("email").isEmail().withMessage("Please enter a valid email"),
@@ -51,16 +52,18 @@ router.post("/createuser", [
       },
     });
   } catch (error) {
-    console.error(error);
+    console.error("Create User Error:", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
-//   POST /login
+// POST /api/auth/login
 router.post("/login", [
   body("email").isEmail().withMessage("Please enter a valid email"),
   body("password").isLength({ min: 6 }).withMessage("Password must be at least 6 characters"),
 ], async (req, res) => {
+  console.log("Login request body:", req.body); // 🐛 Debug log
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -98,7 +101,7 @@ router.post("/login", [
       },
     });
   } catch (error) {
-    console.error(error);
+    console.error("Login Error:", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
