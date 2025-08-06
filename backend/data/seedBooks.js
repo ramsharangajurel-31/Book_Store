@@ -1,7 +1,7 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const Product = require('../model/Product');
 const connectDB = require('../config/db');
-
 
 const seedBooks = [
   {
@@ -114,16 +114,16 @@ const seedBooks = [
   },
 ];
 
-
 const seedDB = async () => {
   try {
     await connectDB();
     await Product.deleteMany({});
     await Product.insertMany(seedBooks);
     console.log('Database seeded with books including correct image filenames');
-    mongoose.connection.close();
   } catch (error) {
     console.error('Error seeding database:', error);
+  } finally {
+    mongoose.connection.close();
   }
 };
 

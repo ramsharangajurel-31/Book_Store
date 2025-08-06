@@ -5,7 +5,6 @@ const { auth, admin } = require('../middleware/auth');
 const { validateBook } = require('../middleware/validation');
 const multer = require('multer');
 
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/'); 
@@ -22,6 +21,9 @@ router.post('/books', auth, admin, upload.single('image'), validateBook, product
 
 // GET /books - Retrieve all books
 router.get('/books', productController.getAllBooks);
+
+// GET /books/category/seed - Seed the database with initial books (Admin only)
+router.get('/books/category/seed', auth, admin, productController.seedBooks);
 
 // GET /books/category/:category - Retrieve books by category
 router.get('/books/category/:category', productController.getBooksByCategory);

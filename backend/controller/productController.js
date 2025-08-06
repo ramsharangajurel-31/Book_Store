@@ -22,6 +22,21 @@ exports.addBook = async (req, res) => {
   }
 };
 
+exports.seedBooks = async (req, res) => {
+  try {
+    const Product = require('../model/Product');
+    const seedBooks = require('../data/seedBooks').seedBooks;
+
+    await Product.deleteMany({});
+    await Product.insertMany(seedBooks);
+
+    res.status(200).json({ message: 'Database seeded successfully' });
+  } catch (error) {
+    console.error('Error seeding database:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 exports.getAllBooks = async (req, res) => {
   try {
     const Product = require('../model/Product');
