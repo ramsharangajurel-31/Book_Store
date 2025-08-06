@@ -18,7 +18,7 @@ const corsOptions = {
         'https://www.yourdomain.com',
         'https://sprightly-hamster-8a2709.netlify.app',
         'https://astounding-pithivier-1fa540.netlify.app',
-        'https://stellar-jalebi-8e28a3.netlify.app'
+         'https://minionlinebookstore.netlify.app',
       ]
     : [
         'http://localhost:5173',
