@@ -6,20 +6,20 @@ import { getCart, saveCart } from '../services/cartService';
 
 
 const ProductState = (props) => {
-  const initialProducts = [/* Your 12 products here (unchanged) */];
+  const initialProducts = [];
 
   const [state, dispatch] = useReducer(cartReducer, {
     products: initialProducts,
     cart: [],
   });
 
-  // Load products and cart on mount
+
   useEffect(() => {
-    allProduct(); // Replace hardcoded with backend data
+    allProduct(); 
     loadCartFromBackend();
   }, []);
 
-  // Debounced saveCart
+  
   useEffect(() => {
     const timeout = setTimeout(() => {
       saveCartToBackend();
@@ -133,17 +133,17 @@ const ProductState = (props) => {
       }
 
       await response.json();
-      allProduct(); // Refresh list
+      allProduct(); 
     } catch (error) {
       console.error("Failed to delete product:", error);
     }
   };
 
   const addToCart = (product) => {
-    // Ensure product has qty property when added to cart
+   
     const productWithQty = {
       ...product,
-      qty: product.qty || 1 // Default to 1 if qty is not set
+      qty: product.qty || 1 
     };
     dispatch({ type: 'ADD_TO_CART', payload: productWithQty });
   };

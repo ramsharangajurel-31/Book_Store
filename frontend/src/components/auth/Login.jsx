@@ -32,7 +32,7 @@ const LoginPage = () => {
 
       if (response.data && response.data.authToken) {
         localStorage.setItem("auth-token", response.data.authToken);
-        navigate("/admin"); // or wherever you want after login
+        navigate("/admin"); 
       } else {
         setError("Login failed. Please try again.");
       }

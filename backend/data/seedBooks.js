@@ -1,7 +1,6 @@
 require('dotenv').config();
-const mongoose = require('mongoose');
-const Product = require('../model/Product');
 const connectDB = require('../config/db');
+const Product = require('../model/Product');
 
 const seedBooks = [
   {
@@ -114,4 +113,21 @@ const seedBooks = [
   },
 ];
 
-module.exports = { seedBooks };
+const seedData = async () => {
+  try {
+    await connectDB();
+
+    await Product.deleteMany({});
+    console.log('Old products deleted');
+
+    const inserted = await Product.insertMany(seedBooks);
+    console.log(`${inserted.length} books inserted`);
+
+    process.exit();
+  } catch (error) {
+    console.error('Error seeding data:', error);
+    process.exit(1);
+  }
+};
+
+seedData();

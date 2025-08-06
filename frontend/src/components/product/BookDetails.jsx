@@ -10,7 +10,7 @@ const BookDetails = () => {
 
   if (!products) return <p>Loading...</p>;
 
-  // For MongoDB ObjectId comparison, we need to convert to string
+  // For MongoDB ObjectId comparison to convert to string
   const book = products.find(b => b._id === id || b._id.toString() === id);
 
   if (!book) return <p className="book-not-found">Book not found</p>;

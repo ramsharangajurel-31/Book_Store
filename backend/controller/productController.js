@@ -53,7 +53,7 @@ exports.getBooksByCategory = async (req, res) => {
     const Product = require('../model/Product');
     const { category } = req.params;
     
-    // Case-insensitive category search
+
     const products = await Product.find({ 
       category: { $regex: new RegExp(category, 'i') } 
     });

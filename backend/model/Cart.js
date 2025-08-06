@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // Schema for individual cart item
 const CartItemSchema = new mongoose.Schema({
   productId: {
-    type: mongoose.Schema.Types.ObjectId,  // changed from String to ObjectId
+    type: mongoose.Schema.Types.ObjectId,  
     ref: 'Product',
     required: true,
   },
@@ -31,15 +31,14 @@ const CartItemSchema = new mongoose.Schema({
   }
 }, { _id: false });
 
-// Schema for the full cart
+
 const CartSchema = new mongoose.Schema({
   userId: {
-    type: mongoose.Schema.Types.ObjectId,  // changed from String to ObjectId
-    ref: 'User',
+    type: mongoose.Schema.Types.ObjectId, 
     required: true,
   },
   items: [CartItemSchema],
-}, { timestamps: true }); // adds createdAt and updatedAt
+}, { timestamps: true }); 
 
 const Cart = mongoose.model('Cart', CartSchema);
 module.exports = Cart;

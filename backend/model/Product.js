@@ -10,7 +10,7 @@ const productSchema = new Schema({
   stock: { type: Number, required: true },
   image: { type: String, required: true },
 }, {
-  timestamps: true,  // optional: adds createdAt and updatedAt fields
+  timestamps: true,  
 });
 
 const Product = mongoose.model("Product", productSchema);

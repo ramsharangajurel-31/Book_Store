@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const auth = (req, res, next) => {
-  // Get the user from the jwt token and add id to req object
+ 
   const token = req.header('auth-token');
   if (!token) {
     return res.status(401).send({ error: "Please authenticate using a valid token" });
@@ -18,9 +18,9 @@ const auth = (req, res, next) => {
   }
 }
 
-// Stub admin middleware - replace with real admin check as needed
+
 const admin = (req, res, next) => {
-  // For now, allow all authenticated users as admin
+  
   next();
 }
 
