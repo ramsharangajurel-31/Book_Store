@@ -6,11 +6,13 @@ import { getImageUrl } from '../../utils/imageUtils';
 const BooksByCategory = ({ categoryParam }) => {
   const category = categoryParam || useParams().category;
   const navigate = useNavigate();
-  const { state: { cart, products }, dispatch, allProduct } = useContext(ProductContext);
+  const { state: { cart, products }, dispatch, getProductsByCategory } = useContext(ProductContext);
+
 
   useEffect(() => {
-    allProduct();
-  }, []);
+    getProductsByCategory(category);
+  }, [category]);
+
 
   const handleViewDetails = (id) => {
     navigate(`/book/${id}`);
