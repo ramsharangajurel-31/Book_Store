@@ -63,6 +63,7 @@ app.get('/contact', (req, res) => {
 app.use("/api/auth", require("./routes/Auth"));
 app.use("/api/cart", require("./routes/cart"));
 app.use("/api/products", require("./routes/product"));
+app.use("/api/products", require("./routes/seed"));
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

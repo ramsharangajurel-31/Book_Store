@@ -114,17 +114,4 @@ const seedBooks = [
   },
 ];
 
-const seedDB = async () => {
-  try {
-    await connectDB();
-    await Product.deleteMany({});
-    await Product.insertMany(seedBooks);
-    console.log('Database seeded with books including correct image filenames');
-  } catch (error) {
-    console.error('Error seeding database:', error);
-  } finally {
-    mongoose.connection.close();
-  }
-};
-
-seedDB();
+module.exports = { seedBooks };
