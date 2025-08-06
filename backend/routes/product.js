@@ -23,6 +23,9 @@ router.post('/books', auth, admin, upload.single('image'), validateBook, product
 // GET /books - Retrieve all books
 router.get('/books', productController.getAllBooks);
 
+// GET /books/category/:category - Retrieve books by category
+router.get('/books/category/:category', productController.getBooksByCategory);
+
 // GET /books/:id - Retrieve a specific book by ID
 router.get('/books/:id', productController.getBookById);
 

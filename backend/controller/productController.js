@@ -33,6 +33,29 @@ exports.getAllBooks = async (req, res) => {
   }
 };
 
+exports.getBooksByCategory = async (req, res) => {
+  try {
+    const Product = require('../model/Product');
+    const { category } = req.params;
+    
+    // Case-insensitive category search
+    const products = await Product.find({ 
+      category: { $regex: new RegExp(category, 'i') } 
+    });
+    
+    if (products.length === 0) {
+      return res.status(404).json({ 
+        message: `No books found in category: ${category}` 
+      });
+    }
+    
+    res.json(products);
+  } catch (error) {
+    console.error('Error fetching books by category:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 
 exports.getBookById = async (req, res) => {
   try {
