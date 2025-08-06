@@ -8,7 +8,9 @@ const productSchema = new Schema({
   price: { type: Number, required: true },
   category: { type: String, required: true },
   stock: { type: Number, required: true },
-  image: { type: String, required: true }
+  image: { type: String, required: true },
+}, {
+  timestamps: true,  // optional: adds createdAt and updatedAt fields
 });
 
 const Product = mongoose.model("Product", productSchema);
