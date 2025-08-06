@@ -1,10 +1,9 @@
- import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddProduct from './product/AddProduct';
 import EditProductModal from './product/EditProductModal';
 import axios from 'axios';
 import ProductContext from '../Context/ProductContext';
-
 
 const AdminPanel = () => {
   const navigate = useNavigate();
@@ -39,7 +38,6 @@ const AdminPanel = () => {
         alert('Product updated successfully');
         closeEditModal();
         allProduct(); 
-        alert('Failed to update product');
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -60,7 +58,7 @@ const AdminPanel = () => {
     try {
       const authToken = localStorage.getItem('auth-token') || '';
       const response = await axios.delete(
-        `http://localhost:5000/api/products/books/${product._id}`,
+        `https://book-store-61ip.onrender.com/api/products/books/${product._id}`,
         {
           headers: {
             'auth-token': authToken,

@@ -156,12 +156,42 @@ const ProductState = (props) => {
     dispatch({ type: 'CLEAR_CART' });
   };
 
+  const getProductsByCategory = async (category) => {
+    try {
+      const response = await fetch(`https://book-store-61ip.onrender.com/api/products/books/category/${category}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': localStorage.getItem('auth-token') || '',
+        }
+      });
+
+      if (response.status === 401) {
+        localStorage.removeItem('auth-token');
+        alert('Session expired. Please log in again.');
+        window.location.href = '/login';
+        return;
+      }
+
+      if (response.status === 404) {
+        dispatch({ type: 'SET_PRODUCTS', payload: [] });
+        return;
+      }
+
+      const data = await response.json();
+      dispatch({ type: 'SET_PRODUCTS', payload: data });
+    } catch (error) {
+      console.error("Failed to fetch products by category", error);
+    }
+  };
+
   return (
     <ProductContext.Provider
       value={{
         state,
         dispatch,
         allProduct,
+        getProductsByCategory,
         editProduct,
         deleteProduct,
         addToCart,
